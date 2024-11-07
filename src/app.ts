@@ -5,7 +5,9 @@ const app = express();
 app.get("/", (req, res) => {
   res.json({ success: true });
 });
+const PORT = process.env.PORT || 4321
 
-app.listen(process.env.PORT, () =>
-  console.log(`server running in http://localhost:${process.env.PORT}`)
+
+app.listen(PORT, () =>
+  console.log(`server running in http://localhost:${PORT}`)
 );
