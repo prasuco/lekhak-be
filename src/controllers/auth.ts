@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
-import CreateUserSchema from "../dtos/createUserSchema";
 import { db } from "../../prisma/prisma";
 import { hashPassword, matchPassword } from "../utils/password";
 import { signJwt } from "../utils/jwt";
+import CreateUserSchema from "../dtos/createUserSchema";
 
 export const registerUserController = async (req: Request, res: Response) => {
   try {
@@ -83,4 +83,16 @@ export const loginUserController = async (req: Request, res: Response) => {
       .status(500)
       .json({ succes: false, message: "something went wrong." });
   }
+};
+
+export const whoAmIController = async (req: Request, res: Response) => {
+  const userExists = await db.user.findUnique({
+    where: { id: req.id },
+    select: { email: true, fullName: true, role: true },
+  });
+
+  if (!userExists) {
+    return res.status(404).json({ success: false, message: "user not found" });
+  }
+  return res.status(200).json({ success: true, data: userExists });
 };

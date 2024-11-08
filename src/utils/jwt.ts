@@ -8,3 +8,12 @@ export const signJwt = async (expiresIn: string, data: {}) => {
   });
   return token;
 };
+
+export const verifyJwt = async (token: string) => {
+  const verified = (await jwt.verify(
+    token,
+    process.env.JWT_SECRET as string,
+  )) as JwtPayload;
+
+  return verified;
+};
