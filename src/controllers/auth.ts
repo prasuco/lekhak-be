@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import CreateUserSchema from "../dtos/createUserSchema";
 import { db } from "../../prisma/prisma";
-import bcrypt from "bcryptjs";
+import { hashPassword } from "../utils/password";
 
 export const registerUserController = async (req: Request, res: Response) => {
   try {
@@ -21,8 +21,7 @@ export const registerUserController = async (req: Request, res: Response) => {
         message: "user with that email alread exists",
       });
     }
-
-    const hashedPassword = await bcrypt.hash(isValidSchema.data.password, 10);
+    const hashedPassword = await hashPassword(isValidSchema.data.password);
 
     const newUser = await db.user.create({
       data: { email: isValidSchema.data.email, password: hashedPassword },
