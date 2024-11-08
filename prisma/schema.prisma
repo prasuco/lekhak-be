@@ -68,6 +68,8 @@ model Organization {
   employees User[]
 
   config OrgConfig?
+
+
 }
 
 
