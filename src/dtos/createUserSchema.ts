@@ -4,4 +4,4 @@ const CreateUserSchema = z.object({
   password: z.string().min(3),
 });
 
-export default CreateUserSchema
+export default CreateUserSchema;

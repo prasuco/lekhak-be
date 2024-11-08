@@ -7,7 +7,7 @@ export const hashPassword = async (password: string) => {
 
 export const matchPassword = async (
   password: string,
-  hashedPassword: string
+  hashedPassword: string,
 ) => {
   const matched = await bcrypt.compare(password, hashedPassword);
   return matched;
